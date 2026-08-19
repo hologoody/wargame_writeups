@@ -1,0 +1,14 @@
+# Obsidian 설정 파일 제외
+.obsidian/*
+
+# Excalidraw 파일 제외
+Excalidraw/*
+
+# Templates 파일 제외
+Templates/*
+
+*
+!*/
+
+!*.pdf
+!.gitignore
