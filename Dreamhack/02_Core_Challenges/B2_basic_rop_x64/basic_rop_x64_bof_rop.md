@@ -46,6 +46,12 @@ int main(int argc, char *argv[]) {
 * **발생 원인:** 변수보다 많이 입력받아 생기는 스택 버퍼 오버플로우
 * **파급 효과:** `RET` 주소 변경 가능. `Partial RELRO` 이므로 `GOT Overwrite` 가능
 
+### buf2rbp 오프셋
+- gdb를 통해 `buf`와 `sfp` 사이의 오프셋을 구해본다.
+![buf2sfp.png|500](_images/buf2sfp.png)
+* `read()`의 두 번째 전달인자인 `rsi`에 `[rbp-0x40]` 주소가 들어가므로, `buf`는 `sfp`로부터 0x40 바이트 떨어져 있음을 알 수 있다.
+* 그러면 0x48 (buf2sfp + sfp) 바이트의 더미값을 넣으면 나머지는 원하는 가젯을 통해 흐름을 바꿀 수 있다.
+
 ---
 
 ## 3. Exploit Strategy (최종 해결 전략)
@@ -61,8 +67,11 @@ int main(int argc, char *argv[]) {
 - `pop rsi; pop r15; ret;`: `read()`의 두 번째 전달인자를 세팅하기 위해 사용
 - `ret;`: `system()` 함수 특성상 16비트 정렬을 맞추기 위해 사용
 
-> ❓ `read()`의 세 번째 전달인자를 세팅하기 위해 `pop rdx` 가젯은 왜 안 썼는가
-> 
+> ❓ 세 번째 전달인자를 세팅하기 위해 `pop rdx` 가젯은 왜 안 썼는가
+> `main()`이 리턴되고, `write()`가 호출되어 실행될 시점에 `rdx` 값이 만약 `0`이었다면 아무런 값도 나오지 않았을 것이다.
+> 그리고 또한, 바이너리 내에 `pop rdx` 가젯이 없기에 일단 한 번 `rdx`를 세팅하는 가젯 없이 실행해보았다.
+> ![](_images/no_pop_rdx_result.png)
+> 위의 사진은 `pop rdx` 가젯 없이 실행한 결과이다. 결국 문제와 바이너리에 따라 다르겠지만, 현재 이 바이너리에서는 `write`가 실행될 시점에 `rdx` 레지스터는 크게 설정되어 있으므로 해당 가젯이 없어도 쉘을 획득할 수 있을 것이라 판단했다.
 
 ### 💡 해결 방법 1 - One-pass Gadget 이용
 
