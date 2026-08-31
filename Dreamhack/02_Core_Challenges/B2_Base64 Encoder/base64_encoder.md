@@ -3,13 +3,12 @@
 - **Platform:** Dreamhack
 - **Date:** 2026-08-17 (solved) / 2026-08-20 (written)
 - **Difficulty:** Easy
-- **Tags:** #pwn #base64 #stack_buffer_overflow #command_injection #troubleshooting
 
 ---
 
 ## 1. Challenge Overview (문제 개요)
 
-> [!info] **문제 요약**
+> [!NOTE] **문제 요약**
 > - **목표:** Flag 획득 (`/flag` 읽기 또는 `execve` 쉘 획득)
 
 - **제공 파일:**
@@ -20,7 +19,7 @@
 	    └──── flag
 	```
 - **보호 기법 (Checksec):**
-	![[_images/chall_checksec.png|233]]
+	![checksec_result](./_images/chall_checksec.png|233)
 
 ---
 
@@ -108,12 +107,12 @@ undefined8 main(void)
 
 ## 3. Exploit Strategy (최종 해결 전략)
 
-> [!success] **돌파구 (Breakthrough)**
+> [!TIP] **돌파구 (Breakthrough)**
 > Base64 인코딩 결과가 **더미값 64바이트 + 원하는 명령어**가 될 수 있도록 입력한 뒤, 2번 옵션을 통해 쉘을 탈취한다.
 
 #### main 함수 스택 프레임
 
-![[_images/base64_encoder_main_stack_frame.png|245]]
+![main_stack_frame](./_images/base64_encoder_main_stack_frame.png)
 
 * 사용자 입력을 저장하는 `userArr`, Base64 인코딩 결과를 저장하는 `base64_result`, 프그램 종료 시 실행되는 명령어가 저장된 `command` 변수 셋 다 인접하게 있다.
 * 사용자 입력이 최대 64바이트일 때, 결과값이 88바이트이므로, 우리는 `command` 변수의 상위 24바이트를 변조시킬 수 있다.
@@ -155,6 +154,6 @@ p.interactive()
 ```
 
 * 다음은 **로컬 환경**에서 실행한 결과이다.
-	 ![[_images/base64_encoder_checksec.png]]
+	 ![local_result](./_images/result.png)
 
 ---
