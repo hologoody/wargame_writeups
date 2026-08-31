@@ -8,6 +8,7 @@ Excalidraw/*
 
 # Templates 파일 제외
 /Templates/template_writeup.md
+/Templates
 
 !*.md
 !*.py
