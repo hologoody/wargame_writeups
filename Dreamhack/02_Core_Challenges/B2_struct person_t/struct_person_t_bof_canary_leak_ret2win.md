@@ -3,13 +3,12 @@
 - **Platform:** Dreamhack
 - **Date:** 2026-08-18 (solved) / 2026-08-21 (written)
 - **Difficulty:** Easy
-- **Tags:** #pwn #canary_leak #stack_buffer_overflow
 
 ---
 
 ## 1. Challenge Overview (문제 개요)
 
-> [!info] **문제 요약**
+> [!NOTE] **문제 요약**
 > - **목표:** `get_shell()` 실행 (`execve("/bin/sh")`으로 쉘 탈취 가능)
 
 - **제공 파일:**
@@ -121,21 +120,21 @@ int main() {
 * 따라서, 해당 변수가 스택 프레임에 들어가는 모습은 어셈블리어 혹은 동적 분석이 필요하다.
 #### 어셈블리어를 통해 확인
 * `name[56]`가 호출되는 부분이다.
-![[_images/struct_name.png]]
+![struct_name.png](./_images/struct_name.png)
 	 > `printf`가 호출된 이후, `read_input` 함수의 전달인자를 설정하는 과정에서,
 	 > `rdi`에 `[rbp - 0x70 + 0x20]`이 들어가므로, `[rbp - 0x50]`이 `name`이다 
 * `age`가 호출되는 부분이다.
-![[_images/struct_age.png]]
+![struct_age.png](./_images/struct_age.png)
 	> 마찬가지로, `scanf` 함수의 전달인자를 설정하는 과정에서,
 	> `rsi`에 `[rbp - 0x70 + 0x60]`이 들어가므로, `age`의 주소는 `[rbp - 0x10]`부터이다.
 * `height`가 호출되는 부분이다.
-![[_images/struct_height.png]]
+![struct_height.png](./_images/struct_height.png)
 	> `scanf`의 두 번째 전달인자인 `rsi`가 `[rbp - 0x70 + 0x58]`로 설정된다.
 	> 따라서 `height`은 `[rbp - 0x18]` 임을 알 수 있다.
 * 다른 멤버 변수들도 동일한 방법으로 찾을 수 있다.
 + **또한**, 구조체의 시작 주소가 `[rbp - 0x70]`이고, 구조체 전체 크기가 0x68이므로, canary 위에 바로 구조체가 존재함을 알 수도 있다.
 
-> [!failure]- Attempt 1: [`p64` 함수를 이용해 전달하기]
+> [!CAUTION]- Attempt 1: [`p64` 함수를 이용해 전달하기]
 > * **가설:** `p64` 함수를 통해 `age`, `height` 변수를 0이 아닌 값으로 채우기
 > * **시도 내용:**
 > 	* `p64(0xAAAAAAAA)`를 통해 변수에 0이 아닌 값을 채우기
@@ -149,7 +148,7 @@ int main() {
 
 ## 4. Exploit Strategy (최종 해결 전략)
 
-> [!success] **돌파구 (Breakthrough)**
+> [!TIP] **돌파구 (Breakthrough)**
 > `person.name`를 출력할 때, canary를 leak하기 위해, `height`, `age`, `male_or_female` + 1바이트를 0이 아닌 더미값으로 채운다.
 > 이후 leak된 canary를 통해 `person.nationality` 입력 때, `RET` 주소를 `get_shell` 주소로 변조한다.
 
@@ -201,7 +200,7 @@ p.interactive()
 ```
 
 * **로컬 환경**에서 실행한 결과이다.
-![[_images/struct_person_t_result.png|500]]
+![struct_person_t_result.png|500](./_images/struct_person_t_result.png)
 * `age`와 `height` 메모리에 0이 아닌 값을 채우기 위한 값을 지정해 보냈다.
 * 이후 canary가 leak되고 이를 이용해 `RET` 주소를 변조한다.
 
