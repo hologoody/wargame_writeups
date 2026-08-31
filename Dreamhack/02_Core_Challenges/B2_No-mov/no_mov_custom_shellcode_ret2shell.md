@@ -22,7 +22,7 @@
     └──── main
 ```
 - **보호 기법 (Checksec):**
-	![checksec|310](./_images/no_mov_checksec.png)
+	![checksec|310](_images/no_mov_checksec.png)
 
 ---
 
@@ -292,7 +292,7 @@ shellcode_asm = """
 ```
 
 * 로컬 환경에서 실행한 결과이다.
-	![no_mov_result.png|446](./_images/no_mov_result.png)
+	![no_mov_result.png|446](_images/no_mov_result.png)
 ---
 
 ## 6. 배운 점 & 오답 노트
