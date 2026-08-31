@@ -19,7 +19,7 @@
 	    └──── flag
 	```
 - **보호 기법 (Checksec):**
-	![checksec_result](./_images/chall_checksec.png|233)
+	![checksec_result.png](./_images/chall_checksec.png|233)
 
 ---
 
