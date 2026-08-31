@@ -22,7 +22,7 @@
     └──── main
 ```
 - **보호 기법 (Checksec):**
-	![[no_mov_checksec.png|306]]
+	![[_images/no_mov_checksec.png|306]]
 
 ---
 
@@ -154,7 +154,7 @@ int main() {
 > - **원인 분석:**
 > 	- x86_64에서 64비트 즉시값(`imm64`)를 `push` 명령의 Operand로 쓸 수 없다.
 > 	- 즉시값은 8비트, 16비트, 32비트만 가능하다
-> 	![[push_instruction.png]]
+> 	![[_images/push_instruction.png]]
 > - **에러 로그 / 터미널 출력:**
 > 	```text
 > 	/tmp/pwn-asm-2_xlcifq/step1:9: Error: operand size mismatch for `push'
@@ -287,7 +287,7 @@ shellcode_asm = """
 ```
 
 * 로컬 환경에서 실행한 결과이다.
-	![[no_mov_result.png|446]]
+	![[_images/no_mov_result.png|446]]
 ---
 
 ## 6. 배운 점 & 오답 노트

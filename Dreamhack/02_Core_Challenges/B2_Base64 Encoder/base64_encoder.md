@@ -20,7 +20,7 @@
 	    └──── flag
 	```
 - **보호 기법 (Checksec):**
-	![[chall_checksec.png|233]]
+	![[_images/chall_checksec.png|233]]
 
 ---
 
@@ -113,7 +113,7 @@ undefined8 main(void)
 
 #### main 함수 스택 프레임
 
-![[base64_encoder_main_stack_frame.png|245]]
+![[_images/base64_encoder_main_stack_frame.png|245]]
 
 * 사용자 입력을 저장하는 `userArr`, Base64 인코딩 결과를 저장하는 `base64_result`, 프그램 종료 시 실행되는 명령어가 저장된 `command` 변수 셋 다 인접하게 있다.
 * 사용자 입력이 최대 64바이트일 때, 결과값이 88바이트이므로, 우리는 `command` 변수의 상위 24바이트를 변조시킬 수 있다.
@@ -155,6 +155,6 @@ p.interactive()
 ```
 
 * 다음은 **로컬 환경**에서 실행한 결과이다.
-	 ![[base64_encoder_checksec.png]]
+	 ![[_images/base64_encoder_checksec.png]]
 
 ---

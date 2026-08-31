@@ -121,7 +121,7 @@ int main() {
 * 따라서, 해당 변수가 스택 프레임에 들어가는 모습은 어셈블리어 혹은 동적 분석이 필요하다.
 #### 어셈블리어를 통해 확인
 * `name[56]`가 호출되는 부분이다.
-![[struct_name.png]]
+![[_images/struct_name.png]]
 	 > `printf`가 호출된 이후, `read_input` 함수의 전달인자를 설정하는 과정에서,
 	 > `rdi`에 `[rbp - 0x70 + 0x20]`이 들어가므로, `[rbp - 0x50]`이 `name`이다 
 * `age`가 호출되는 부분이다.
@@ -129,7 +129,7 @@ int main() {
 	> 마찬가지로, `scanf` 함수의 전달인자를 설정하는 과정에서,
 	> `rsi`에 `[rbp - 0x70 + 0x60]`이 들어가므로, `age`의 주소는 `[rbp - 0x10]`부터이다.
 * `height`가 호출되는 부분이다.
-![[struct_height.png]]
+![[_images/struct_height.png]]
 	> `scanf`의 두 번째 전달인자인 `rsi`가 `[rbp - 0x70 + 0x58]`로 설정된다.
 	> 따라서 `height`은 `[rbp - 0x18]` 임을 알 수 있다.
 * 다른 멤버 변수들도 동일한 방법으로 찾을 수 있다.
@@ -201,7 +201,7 @@ p.interactive()
 ```
 
 * **로컬 환경**에서 실행한 결과이다.
-![[struct_person_t_result.png|500]]
+![[_images/struct_person_t_result.png|500]]
 * `age`와 `height` 메모리에 0이 아닌 값을 채우기 위한 값을 지정해 보냈다.
 * 이후 canary가 leak되고 이를 이용해 `RET` 주소를 변조한다.
 
