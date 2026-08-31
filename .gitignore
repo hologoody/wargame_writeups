@@ -3,9 +3,13 @@
 
 # Excalidraw 파일 제외
 Excalidraw/*
+*.excalidraw
+*.excalidraw.md
 
 # Templates 파일 제외
-Templates/*
+/Templates/template_writeup.md
 
-*
+!*.md
+!*.py
+!*.png
 !.gitignore
