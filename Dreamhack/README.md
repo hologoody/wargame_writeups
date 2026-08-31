@@ -29,7 +29,14 @@
 * 🟢 [sint_integer_underflow_ret2win.py](./01_Fundamentals/sint_integer_underflow_ret2win.py) - `Interger Underflow`
 
 ### 📂 02. Core Challenges (Bronze 2 ~ Sliver 3)
-* 🟡
+* 🟡 [base64_encoder_bof_command_injection.py](./02_Core_Challenges/B2_Base64-Encoder/base64_encoder_bof_command_injection.py) - `Stack BOF`, `Command Injection`
+* 🟡 [basic_rop_x64_bof_rop_one-pass_gadget.py](./02_Core_Challenges/B2_basic_rop_x64/basic_rop_x64_bof_rop_one-pass_gadget.py) - `Stack BOF`, `ROP`, `One-pass Gadget`
+* 🟡 [basic_rop_x64_bof_rop_ret2main.py](./02_Core_Challenges/B2_basic_rop_x64/basic_rop_x64_bof_rop_ret2main.py) - `Stack BOF`, `ROP`, `ret2main`
+* 🟡 [basic_rop_x86_bof_rop_one-pass_gadget.py](./02_Core_Challenges/B2_basic_rop_x86/basic_rop_x86_bof_rop_one-pass_gadget.py) - `Stack BOF`, `ROP`, `One-pass Gadget`, `i386`
+* 🟡 [basic_rop_x86_bof_rop_ret2main.py](./02_Core_Challenges/B2_basic_rop_x86/basic_rop_x86_bof_rop_ret2main.py) - `Stack BOF`, `ROP`, `ret2main`, `i386`
+* 🟡 [no_mov_custom_shellcode_ret2shell.py](./02_Core_Challenges/B2_No-mov/no_mov_custom_shellcode_ret2shell.py) - `Shellcode`, `Custom Shellcode`
+* 🟡 [ssp_001_oob_bof_canary_leak_ret2win.py](./02_Core_Challenges/B2_ssp_001/ssp_001_oob_bof_canary_leak_ret2win.py) - `Out of Bound`, `Stack BOF`, `Canary Leak`, `ret2win`
+* 🟡 [struct_person_t_bof_canary_leak_ret2win.py](./02_Core_Challenges/B2_struct-person_t/struct_person_t_bof_canary_leak_ret2win.py) - `Stack BOF`, `Canary Leak`, `ret2win`
 
 ### 📂 03. Deep Dive (Sliver 2 ~ Gold +) ⭐⭐
 * 🔴
