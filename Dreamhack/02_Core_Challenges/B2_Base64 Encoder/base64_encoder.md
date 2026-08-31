@@ -8,7 +8,8 @@
 
 ## 1. Challenge Overview (문제 개요)
 
-> [!NOTE] **문제 요약**
+> [!NOTE]
+> 📖 **문제 요약**
 > - **목표:** Flag 획득 (`/flag` 읽기 또는 `execve` 쉘 획득)
 
 - **제공 파일:**
@@ -108,7 +109,8 @@ undefined8 main(void)
 
 ## 3. Exploit Strategy (최종 해결 전략)
 
-> [!TIP] **돌파구 (Breakthrough)**
+> [!TIP] 
+> ‼️ **돌파구 (Breakthrough)**
 > Base64 인코딩 결과가 **더미값 64바이트 + 원하는 명령어**가 될 수 있도록 입력한 뒤, 2번 옵션을 통해 쉘을 탈취한다.
 
 #### main 함수 스택 프레임

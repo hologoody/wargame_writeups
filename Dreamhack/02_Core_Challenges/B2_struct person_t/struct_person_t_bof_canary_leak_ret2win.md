@@ -8,7 +8,8 @@
 
 ## 1. Challenge Overview (문제 개요)
 
-> [!NOTE] **문제 요약**
+> [!NOTE]
+> 📖 **문제 요약**
 > - **목표:** `get_shell()` 실행 (`execve("/bin/sh")`으로 쉘 탈취 가능)
 
 - **제공 파일:**
@@ -134,7 +135,8 @@ int main() {
 * 다른 멤버 변수들도 동일한 방법으로 찾을 수 있다.
 + **또한**, 구조체의 시작 주소가 `[rbp - 0x70]`이고, 구조체 전체 크기가 0x68이므로, canary 위에 바로 구조체가 존재함을 알 수도 있다.
 
-> [!CAUTION]- Attempt 1: [`p64` 함수를 이용해 전달하기]
+> [!CAUTION]
+> ⛔ Attempt 1: [`p64` 함수를 이용해 전달하기]
 > * **가설:** `p64` 함수를 통해 `age`, `height` 변수를 0이 아닌 값으로 채우기
 > * **시도 내용:**
 > 	* `p64(0xAAAAAAAA)`를 통해 변수에 0이 아닌 값을 채우기
@@ -148,7 +150,8 @@ int main() {
 
 ## 4. Exploit Strategy (최종 해결 전략)
 
-> [!TIP] **돌파구 (Breakthrough)**
+> [!TIP]
+> ‼️ **돌파구 (Breakthrough)**
 > `person.name`를 출력할 때, canary를 leak하기 위해, `height`, `age`, `male_or_female` + 1바이트를 0이 아닌 더미값으로 채운다.
 > 이후 leak된 canary를 통해 `person.nationality` 입력 때, `RET` 주소를 `get_shell` 주소로 변조한다.
 

@@ -8,7 +8,8 @@
 
 ## 1. Challenge Overview (문제 개요)
 
-> [!NOTE] **문제 요약**
+> [!NOTE] 
+> 📖 **문제 요약**
 > - **목표:** Flag 획득 (`/flag` 읽기 또는 `execve` 쉘 획득)
 > - **제약 조건:** 쉘 코드 내부 `mov` 불가
 
@@ -144,7 +145,8 @@ int main() {
 
 ## 3. Trial & Error (삽질 및 실패 기록)
 
-> [!CAUTION]- Attempt 1: [8바이트 값 push/pop]
+> [!CAUTION]
+> ⛔ Attempt 1: [8바이트 값 push/pop]
 > - **가설:** `push "/bin/sh"`과 `pop rax`를 이용하면 문자열을 넣을 수 있을 것이다.
 > - **시도 내용:**
 > 	- `push` 명령어를 사용해 문자열을 스택에 직접 대입
@@ -159,7 +161,8 @@ int main() {
 > 	/tmp/pwn-asm-2_xlcifq/step1:9: Error: operand size mismatch for `push'
 > 	```
 
-> [!CAUTION]- Attempt 2: [4바이트씩 끊어서 push/pop] 
+> [!CAUTION]
+> ⛔ Attempt 2: [4바이트씩 끊어서 push/pop] 
 > - **가설:** 4바이트씩 끊어서 `push`한 뒤, 레지스터에 `pop`하면 될 것이다.
 > - **시도 내용:**
 > 	```asm
@@ -172,7 +175,8 @@ int main() {
 > 	- 쉘 코드가 삽입되어 실행되었지만, 원하는 결과가 나오지 않음
 > 	=> 마지막 `pop` 명령으로 `rax`에는 0x6E69622F("/bin")만 저장되었기 때문
 
-> [!CAUTION]- Attempt 3: [`push` 연산 + `or` 연산 + `shl` 조합] 
+> [!CAUTION]
+> ⛔ Attempt 3: [`push` 연산 + `or` 연산 + `shl` 조합] 
 > - **가설:** 4바이트씩 끊어서 `push` 한 뒤, `shl` 연산으로 밀어 올리고, `or` 연산으로 하위 비트 채우기
 > - **시도 내용:**
 > 	```asm
@@ -194,7 +198,8 @@ int main() {
 > 	- 이후 실행될 명령어를 찾기 위해 `rip` 레지스터가 증가하게 되면, 할당되지 않은 영역에 접근하게 되므로 커널이 바로 `SIGSEGV` 에러를 던진다.
 
 
-> [!IMPORTANT] Attempt 3 관련: [정상적으로 쉘을 탈취한 경우에는 왜 `SIGSEGV` 에러가 나오지 않는가]
+> [!IMPORTANT]
+> ❓ Attempt 3 관련: [정상적으로 쉘을 탈취한 경우에는 왜 `SIGSEGV` 에러가 나오지 않는가]
 > ## `fork()` 함수와 `execve()` 함수의 부모 프로세스 관련 동작의 차이
 > * `fork()`
 > 	=> 부모 프로세스에서 자식 프로세스를 생성한 뒤, 부모 프로세스의 메모리 상태에서 몇 가지를 제외하고 자식 프로세스에 그대로 복사한다.
@@ -207,7 +212,8 @@ int main() {
 
 ## 4. Exploit Strategy (최종 해결 전략)
 
-> [!TIP] **돌파구 (Breakthrough)**
+> [!TIP]
+> ‼️ **돌파구 (Breakthrough)**
 > 1. 레지스터가 `0`으로 초기화된 상태를 활용해 **32비트 단위 `or` 연산 + `shl`** 조합으로 `mov` 없이 64비트 문자열 완성.
 > 2. 32비트 단위 `push`/`pop` + `shl` + `or` 조합으로 문자열 만들기
 
