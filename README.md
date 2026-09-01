@@ -30,6 +30,7 @@
 
 ### 📂 02. Core Challenges (Bronze 2 ~ Sliver 3)
 * 🟡 [base64_encoder_bof_command_injection.py](./Dreamhack/02_Core_Challenges/B2_Base64-Encoder/base64_encoder_bof_command_injection.py) - `Stack BOF`, `Command Injection`
+* 🟡 [basic_exploitation_000_bof_custom_shellcode.py](./Dreamhack/02_Core_Challenges/B2_basic_exploitation_000/basic_exploitation_000_bof_custom_shellcode.py) - `Stack BOF`, `Shellcode`, `Custom Shellcode`, `i386`
 * 🟡 [basic_rop_x64_bof_rop_one-pass_gadget.py](./Dreamhack/02_Core_Challenges/B2_basic_rop_x64/basic_rop_x64_bof_rop_one-pass_gadget.py) - `Stack BOF`, `ROP`, `One-pass Gadget`
 * 🟡 [basic_rop_x64_bof_rop_ret2main.py](./Dreamhack/02_Core_Challenges/B2_basic_rop_x64/basic_rop_x64_bof_rop_ret2main.py) - `Stack BOF`, `ROP`, `ret2main`
 * 🟡 [basic_rop_x86_bof_rop_one-pass_gadget.py](./Dreamhack/02_Core_Challenges/B2_basic_rop_x86/basic_rop_x86_bof_rop_one-pass_gadget.py) - `Stack BOF`, `ROP`, `One-pass Gadget`, `i386`
@@ -39,4 +40,4 @@
 * 🟡 [struct_person_t_bof_canary_leak_ret2win.py](./Dreamhack/02_Core_Challenges/B2_struct-person_t/struct_person_t_bof_canary_leak_ret2win.py) - `Stack BOF`, `Canary Leak`, `ret2win`
 
 ### 📂 03. Deep Dive (Sliver 2 ~ Gold +) ⭐⭐
-* 🔴
+* 🔴 
