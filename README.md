@@ -42,4 +42,4 @@
 * 🟡 [xrop_bof_canary_leak_rop.py](./Dreamhack/02_Core_Challenges/S4_xrop/xrop_bof_canary_leak_rop.py) - `Stack BOF`, `Canary Leak`, `ROP`, `ROP with library`
 
 ### 📂 03. Deep Dive (Sliver 2 ~ Gold +) ⭐⭐
-* 🔴 
+* 🔴 [platform_9½_oob_aaw_bof_rop.py](./Dreamhack/03_Deep_Dive/S2_Platform_9½/platform_9½_oob_aaw_bof_rop.py) - `Out of Bound`, `Arbitrary Address Write`, `Arbitrary Address Read`, `Stack BOF`, `ROP`
