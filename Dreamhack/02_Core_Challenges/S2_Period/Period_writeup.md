@@ -145,7 +145,7 @@ void readln(long param_1)
 - `readln()`: `0x2e(.)`이 나올 때까지 첫 번째 전달인자에 값을 입력하여 넣는다. (최대 넣은 수 있는 바이트는 0x100)
 - `readint()`: `readln()` 함수를 통해 입력 받은 뒤, `atoi()`를 통해 문자열을 숫자로 변경한다.
 </br></br>
-- 바이너리에서 `cleara()` 함수는 `cleara(buf, 0x100)`으로 밖에 쓰이지 않는다.
+- 바이너리에서 `cleara()` 함수는 `cleara(buf, 0x100)`으로만 사용된다.
 - `readln()`에서 최대 0x100 바이트만큼 입력받을 수 있다는 점을 생각하면 다음과 같은 시나리오가 가능하다.
 	- `readln()`에서 `0x2e`가 아닌 값을 0x100 바이트 입력한다.
 	- `writeln()`을 통해 `buf` 안의 내용을 출력한다.
@@ -171,8 +171,9 @@ void readln(long param_1)
 - 또한, `readint()` 함수는 내부적으로 `readln()` 함수를 호출한다.
 - 이때, `readint()` 함수에서 값을 받는 변수의 크기와 `readln()` 함수가 입력을 받을 수 있는 최대 바이트 수가 차이가 난다.
   (`readint()` 함수는 `char local_28 [24]` / `readln()` 함수는 `for문에서 최대 0x100 바이트`)
-- 따라서, 여기서 스택 버퍼 오버플로우가 발생한다.
+- 따라서, 여기서 스택 버퍼 오버플로우가 발생한다. `readint()`의 canary를 우회한 뒤, `readint()`의 `RET` 주소를 `system("/bin/sh")`를 호출할 수 있는 ROP 체인으로 구성한다면 쉘을 획득할 수 있을 것이다.
 
+> ⚠️ `run` 함수에서 ROP를 진행하는 것이 아니라, 메뉴 선택을 위해 호출되는 `readint()`에서 진행됩니다.
 
 ---
 
@@ -205,10 +206,12 @@ void readln(long param_1)
 - `__libc_start_main -> __libc_start_call_main -> main` 순으로 호출이 되고, 현재 `main` 함수는 `0x7ffff7c29d90`으로 리턴한다. 그러면 이 주소는 `__libc_start_call_main`의 어딘가를 가리키고 있다.
 - 또한 그 함수는 `__libc_start_main+128`로 리턴한다. 이전에 `__libc_start_main`에서 `__libc_start_main + 123`에서 `call` 명령이 이루어지는 것을 보면 `__libc_start_call_main`은 `0x7ffff7c29d10`부터 시작함을 알 수 있다.
 - `vmmap`으로 확인한 라이브러리의 베이스 주소는 `0x7ffff7c00000`이다. 이를 이용해 오프셋을 구하면
+
 ```
 __libc_start_call_main 의 오프셋 = 0x7ffff7c29d10 - 0x7ffff7c00000 = 0x29d10
 ```
 
+- 그리고 `main` 함수에서 리턴되는 `__libc_start_call_main` 내부의 주소는 해당 함수의 시작 주소보다 0x80 (128 in 10 base) 떨어져 있다. Leak된 리턴 주소에서 0x80을 빼야만 시작 주소를 정확히 알아낼 수 있다.
 
 #### 2. `__libc_system`
 
