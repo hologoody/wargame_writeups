@@ -38,6 +38,8 @@
 * 🟡 [no_mov_custom_shellcode_ret2shell.py](./Dreamhack/02_Core_Challenges/B2_No-mov/no_mov_custom_shellcode_ret2shell.py) - `Shellcode`, `Custom Shellcode`
 * 🟡 [ssp_001_oob_bof_canary_leak_ret2win.py](./Dreamhack/02_Core_Challenges/B2_ssp_001/ssp_001_oob_bof_canary_leak_ret2win.py) - `Out of Bound`, `Stack BOF`, `Canary Leak`, `ret2win`
 * 🟡 [struct_person_t_bof_canary_leak_ret2win.py](./Dreamhack/02_Core_Challenges/B2_struct-person_t/struct_person_t_bof_canary_leak_ret2win.py) - `Stack BOF`, `Canary Leak`, `ret2win`
+* 🟡 [period_bof_canary_leak_rop.py](./Dreamhack/02_Core_Challenges/S2_Period/period_bof_canary_leak_rop.py) - `Stack BOF`, `Canary Leak`, `ROP`, `ROP with library`
+* 🟡 [xrop_bof_canary_leak_rop.py](./Dreamhack/02_Core_Challenges/S4_xrop/xrop_bof_canary_leak_rop.py) - `Stack BOF`, `Canary Leak`, `ROP`, `ROP with library`
 
 ### 📂 03. Deep Dive (Sliver 2 ~ Gold +) ⭐⭐
 * 🔴 
