@@ -43,3 +43,4 @@
 
 ### 📂 03. Deep Dive (Sliver 2 ~ Gold +) ⭐⭐
 * 🔴 [platform_9½_oob_aaw_bof_rop.py](./Dreamhack/03_Deep_Dive/S2_Platform_9½/platform_9½_oob_aaw_bof_rop.py) - `Out of Bound`, `Arbitrary Address Write`, `Arbitrary Address Read`, `Stack BOF`, `ROP`
+* 🔴 [sea_of_stack_bof_aaw_rop.py](./Dreamhack/03_Deep_Dive/S2_Sea_of_Stack/sea_of_stack_bof_aaw_rop.py) - `Stack BOF`, `Arbitrary Address Write`, `ROP`
