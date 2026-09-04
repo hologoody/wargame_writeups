@@ -165,7 +165,7 @@ read(r13, r12 + rbx, rbp - rbx);
 결과적으로 이 함수는 아래 코드로 나타낼 수 있다.
 
 ```c
-size_t read_all(int fd, void *buf, size_t size) {
+ssize_t read_all(int fd, void *buf, size_t size) {
 	size_t total = 0;
 	
 	while (total < size) {
@@ -214,7 +214,7 @@ Dump of assembler code for function write_all.constprop.0:
 End of assembler dump.
 ```
 
-`write_all.constprop.0`은 데이터를 출력할 버퍼의 시작 주소로부터 8바이트 값을 출력하는 함수이다.
+`write_all.constprop.0`은 지정된 버퍼에서 총 8바이트를 출력하기 위해 `write()`를 반복 호출하는 함수이다.
 
 
 먼저 함수의 인자를 보존한다.
@@ -258,7 +258,7 @@ write(0x1, r12 + rbx, rbp - rbx);
 결과적으로 해당 함수도 다음과 같이 나타낼 수 있다.
 
 ```c
-size_t write_all_constprop_0(void *buf) {
+ssize_t write_all_constprop_0(void *buf) {
 	size_t total = 0;
 	
 	while (total < 0x8) {
@@ -673,7 +673,7 @@ VM stack을 초기화하는 부분에서 `r12` 레지스터는 현재 값을 저
 > 3. 두 번째 `main` 함수에서도 먼저, VM stack pointer를 `RET + 8`에 위치시킨다.
 > 4. `RET` 주소부터 `system("/bin/sh")`을 호출하도록 ROP chain을 구성한다.
 
-`\x06`을 통해 값을 입력하고, `\x01`로 값을 PUSH하며, `\x04`로 VM stack pointer를 0x10만큼 증가시켜야 된다.
+`\x06`을 통해 값을 입력하고, `\x01`로 값을 PUSH하며, `\x04`로 VM stack pointer를 0x10만큼 증가시켜 다음 값을 저장할 위치로 이동한다.
 
 ```text
 ----------- <- p2                 ----------- <- p2                              ----------- <- p2
